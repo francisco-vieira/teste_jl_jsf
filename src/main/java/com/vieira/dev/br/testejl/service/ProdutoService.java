@@ -5,6 +5,7 @@ import com.vieira.dev.br.testejl.service.cinterface.Services;
 import com.vieira.dev.br.testejl.service.conn.PersistenceUP;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class ProdutoService implements Services<Produto> {
@@ -21,6 +22,13 @@ public class ProdutoService implements Services<Produto> {
         return this.manager.find(Produto.class, id);
     }
 
+    public List<Produto> findByDescricao(String value){
+        value = value.trim();
+        TypedQuery<Produto> query = manager.createQuery("FROM Produto where descricao like :value",
+                Produto.class);
+        query.setParameter("value", value.concat("%"));
+        return query.getResultList();
+    }
     @Override
     public List<Produto> findAll() {
         return this.manager.createQuery("SELECT p FROM Produto p", Produto.class).getResultList();

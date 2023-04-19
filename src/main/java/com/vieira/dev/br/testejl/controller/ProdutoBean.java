@@ -77,8 +77,10 @@ public class ProdutoBean implements Serializable {
 
     public boolean pesquisar() {
         if (!Strings.isNullOrEmpty(pesquisa))
-            this.produto = produtos.stream().filter(f -> f.getDescricao().equalsIgnoreCase(pesquisa)).findFirst().orElse(new Produto());
-
+            this.produto = this.service.findByDescricao((pesquisa))
+                    .stream()
+                    .findFirst()
+                    .orElse(new Produto());
         return Objects.nonNull(this.produto.getId());
     }
 
