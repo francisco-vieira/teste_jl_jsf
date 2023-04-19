@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                template="WEB-INF/template/layout.xhtml">
+    <ui:define name="title">Buscar Produto</ui:define>
+    <ui:define name="container">
+        <h:outputLabel value="Pesquisar produtos"/>
+
+        <h:form>
+
+            <div class="input-group mb-3">
+                <h:inputText id="pesquisaId"
+                             class="form-control"
+                             value="#{produtoBean.pesquisa}"
+                             a:placeholder="Digite sua busca"
+                             aria-describedby="basic-addon2"/>
+                <div class="input-group-append ml-1">
+                    <h:commandButton styleClass="btn btn-primary"
+                                     value="Pesquisar"
+                                     action="#{produtoBean.pesquisar()}"
+                    />
+                </div>
+            </div>
+
+            <div class="card col-sm-12 border-success mb-3"
+                 jsfc="h:panelGrid"
+                 rendered="#{produtoBean.pesquisar()}">
+                <div class="card-header bg-transparent border-success">Detalhes do produto</div>
+                <div class="card-body text-success">
+                    <h5 class="card-title">
+                        <h:outputText value="#{produtoBean.produto.descricao.toUpperCase()}"/>
+                    </h5>
+                </div>
+
+                <p class="card-text">
+                    <h:outputText id="id" value="Código: #{produtoBean.produto.id}"/>
+                    <h:outputText id="valor" value="Preço: #{produtoBean.produto.valor}"/>
+                    <h:outputText id="estoque" value="Estoque:  #{produtoBean.produto.estoque}"/>
+                    <h:outputText id="estoqueM" value="Quantidade mínima: #{produtoBean.produto.quantidadeMinima}"/>
+                </p>
+                <div class="card-footer bg-transparent border-success">
+                    <h:outputLabel value="#{produtoBean.estoqueBaixo}"/>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>
+
+
+</html>
